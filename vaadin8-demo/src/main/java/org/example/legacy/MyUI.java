@@ -1,4 +1,4 @@
-package org.test;
+package org.example.legacy;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.test.backend.Person;
-import org.test.backend.PersonService;
-import org.test.util.SpringUtil;
+import org.example.legacy.backend.Person;
+import org.example.legacy.backend.PersonService;
+import org.example.legacy.util.SpringUtil;
 
 import javax.servlet.annotation.WebServlet;
 import java.util.stream.Stream;

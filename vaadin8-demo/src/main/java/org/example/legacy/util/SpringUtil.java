@@ -1,4 +1,4 @@
-package org.test.util;
+package org.example.legacy.util;
 
 import com.vaadin.data.provider.QuerySortOrder;
 import com.vaadin.shared.data.sort.SortDirection;

@@ -1,12 +1,12 @@
-package org.test.util;
+package org.example.legacy.util;
 
 import org.ajbrown.namemachine.Name;
 import org.ajbrown.namemachine.NameGenerator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.test.backend.Person;
-import org.test.backend.PersonService;
+import org.example.legacy.backend.Person;
+import org.example.legacy.backend.PersonService;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

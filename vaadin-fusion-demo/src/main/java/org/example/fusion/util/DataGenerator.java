@@ -1,7 +1,7 @@
-package com.example.application.util;
+package org.example.fusion.util;
 
-import com.example.application.backend.Person;
-import com.example.application.backend.PersonRepository;
+import org.example.fusion.backend.Person;
+import org.example.fusion.backend.PersonRepository;
 import org.ajbrown.namemachine.Name;
 import org.ajbrown.namemachine.NameGenerator;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class DataGenerator {
 
     final static Logger logger = Logger.getLogger("InitDataService");
-    protected static final int COUNT = 1000000;
+    protected static final int COUNT = 1000;
 
     @Bean
     public CommandLineRunner createDemoDataIfNeeded(PersonRepository personRepository) {

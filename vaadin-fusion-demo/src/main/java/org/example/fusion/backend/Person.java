@@ -1,12 +1,13 @@
-package org.test.backend;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.ajbrown.namemachine.Name;
+package org.example.fusion.backend;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.ajbrown.namemachine.Name;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity

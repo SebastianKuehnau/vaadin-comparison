@@ -1,13 +1,12 @@
-package com.example.application.backend;
+package org.example.legacy.backend;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.ajbrown.namemachine.Name;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.ajbrown.namemachine.Name;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity

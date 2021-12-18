@@ -1,4 +1,4 @@
-package com.example.application.backend;
+package org.example.fusion.backend;
 
 import java.util.List;
 
@@ -12,14 +12,10 @@ import org.springframework.data.domain.PageRequest;
 @AnonymousAllowed
 public class PersonEndpoint {
 
-    private PersonRepository personRepository ;
+    private PersonRepository personRepository;
 
     public PersonEndpoint(PersonRepository personRepository) {
         this.personRepository = personRepository;
-    }
-
-    public @Nonnull List<@Nonnull Person> findAll() {
-        return personRepository.findAll();
     }
 
     class PageResponse<T> {
@@ -27,6 +23,7 @@ public class PersonEndpoint {
         public long size;
     }
 
+    @Nonnull
     public PageResponse<Person> getPage(int page, int size) {
         var dbPage = personRepository.findAll(PageRequest.of(page, size));
     
