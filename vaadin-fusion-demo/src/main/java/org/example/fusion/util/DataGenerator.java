@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class DataGenerator {
 
     final static Logger logger = Logger.getLogger("InitDataService");
-    protected static final int COUNT = 1000;
+    protected static final int COUNT = 1000000;
 
     @Bean
     public CommandLineRunner createDemoDataIfNeeded(PersonRepository personRepository) {

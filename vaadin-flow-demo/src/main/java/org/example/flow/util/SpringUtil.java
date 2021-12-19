@@ -1,4 +1,4 @@
-package org.vaadin.example.util;
+package org.example.flow.util;
 
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.provider.SortDirection;

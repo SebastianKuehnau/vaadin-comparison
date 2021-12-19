@@ -1,4 +1,4 @@
-package org.vaadin.example.backend;
+package org.example.flow.backend;
 
 import org.ajbrown.namemachine.Name;
 

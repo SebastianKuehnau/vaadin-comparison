@@ -1,11 +1,11 @@
-package org.vaadin.example.util;
+package org.example.flow.util;
 
 import org.ajbrown.namemachine.NameGenerator;
+import org.example.flow.backend.PersonService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.vaadin.example.backend.Person;
-import org.vaadin.example.backend.PersonService;
+import org.example.flow.backend.Person;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;

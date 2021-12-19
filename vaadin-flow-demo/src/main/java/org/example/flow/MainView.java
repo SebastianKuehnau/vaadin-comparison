@@ -1,24 +1,17 @@
-package org.vaadin.example;
+package org.example.flow;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
-import org.vaadin.example.backend.Person;
-import org.vaadin.example.backend.PersonService;
-import org.vaadin.example.util.SpringUtil;
+import org.example.flow.backend.Person;
+import org.example.flow.backend.PersonService;
+import org.example.flow.util.SpringUtil;
 
 @Route
 @CssImport("./styles/shared-styles.css")

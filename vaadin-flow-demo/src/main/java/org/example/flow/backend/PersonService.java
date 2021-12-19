@@ -1,4 +1,4 @@
-package org.vaadin.example.backend;
+package org.example.flow.backend;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
