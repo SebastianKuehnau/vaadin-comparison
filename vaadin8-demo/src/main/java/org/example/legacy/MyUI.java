@@ -46,10 +46,7 @@ public class MyUI extends UI {
         
         Grid<Person> personGrid = new Grid<>(Person.class);
 
-        personGrid.setDataProvider(DataProvider.fromCallbacks(
-                query -> fetchPersons(query),
-                query -> Math.toIntExact(fetchPersons(query).count())
-        ));
+        personGrid.setItems(personService.findAll());
         personGrid.setColumns("lastname", "firstname", "email", "counter");
         personGrid.setSizeFull();
 
@@ -57,30 +54,6 @@ public class MyUI extends UI {
         layout.setSizeFull();
 
         setContent(layout);
-    }
-
-    private Stream<Person> fetchPersons(Query<Person, Void> query) {
-        // The index of the first item to load
-        int offset = query.getOffset();
-
-        // The number of items to load
-        int limit = query.getLimit();
-
-        Sort sort = SpringUtil.convertSortOrders(query.getSortOrders());
-
-        // Spring specific API to page queries
-        PageRequest pageRequest = PageRequest.of((offset / limit), limit, sort);
-
-        //DTO for filtering
-        //Person personFilterDto = new Person(lastnameField.getValue(), firstnameField.getValue(), emailField.getValue(), counterComboBox.getValue());
-
-        long startTime = System.currentTimeMillis() ;
-
-        Page<Person> personPage = personService.findAll(pageRequest);
-
-        log.info("Grid Query time is " + (System.currentTimeMillis() - startTime));
-
-        return personPage.stream();
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
