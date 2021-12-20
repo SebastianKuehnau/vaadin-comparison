@@ -22,10 +22,15 @@ public class Person {
     private String email ;
     private Integer counter ;
 
-    public Person(String lastname, String firstname, String email, Integer counter) {
+
+    public Person(String lastname, String firstname, String email) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
+    }
+
+    public Person(String lastname, String firstname, String email, Integer counter) {
+        this(lastname, firstname, email);
         this.counter = counter;
     }
 

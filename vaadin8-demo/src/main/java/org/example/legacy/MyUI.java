@@ -6,16 +6,14 @@ import com.vaadin.data.provider.DataProvider;
 import com.vaadin.data.provider.Query;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+import com.vaadin.ui.components.grid.HeaderRow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.example.legacy.backend.Person;
 import org.example.legacy.backend.PersonService;
 import org.example.legacy.util.SpringUtil;
@@ -40,11 +38,15 @@ public class MyUI extends UI {
 
     Logger log = LogManager.getLogger(MyUI.class);
 
+    private final Grid<Person> personGrid = new Grid<>(Person.class);
+    private final TextField lastnameFilterField = new FilterTextField("Lastname");
+    private final TextField firstnameFilterField = new FilterTextField("Firstname");
+    private final TextField emailFilterField = new FilterTextField("Email");
+    private final ComboBox<Integer> counterFilterField = new ComboBox<>("");
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
-        
-        Grid<Person> personGrid = new Grid<>(Person.class);
 
         personGrid.setDataProvider(DataProvider.fromCallbacks(
                 query -> fetchPersons(query),
@@ -53,10 +55,27 @@ public class MyUI extends UI {
         personGrid.setColumns("lastname", "firstname", "email", "counter");
         personGrid.setSizeFull();
 
+        counterFilterField.setItems(personService.findDistinctCounter());
+        counterFilterField.addValueChangeListener(event -> personGrid.getDataProvider().refreshAll());
+
+        HeaderRow headerRow = personGrid.appendHeaderRow();
+        headerRow.getCell("lastname").setComponent(lastnameFilterField);
+        headerRow.getCell("firstname").setComponent(firstnameFilterField);
+        headerRow.getCell("email").setComponent(emailFilterField);
+        headerRow.getCell("counter").setComponent(counterFilterField);
+
         layout.addComponent(personGrid);
         layout.setSizeFull();
 
         setContent(layout);
+    }
+
+    public class FilterTextField extends TextField {
+        public FilterTextField(String placeholder) {
+            addValueChangeListener(event -> personGrid.getDataProvider().refreshAll());
+            setValueChangeMode(ValueChangeMode.EAGER);
+            setPlaceholder(placeholder);
+        }
     }
 
     private Stream<Person> fetchPersons(Query<Person, Void> query) {
@@ -72,11 +91,17 @@ public class MyUI extends UI {
         PageRequest pageRequest = PageRequest.of((offset / limit), limit, sort);
 
         //DTO for filtering
-        //Person personFilterDto = new Person(lastnameField.getValue(), firstnameField.getValue(), emailField.getValue(), counterComboBox.getValue());
+        Person personFilterDto = new Person(lastnameFilterField.getValue(), firstnameFilterField.getValue(), emailFilterField.getValue(), counterFilterField.getValue());
 
-        long startTime = System.currentTimeMillis() ;
+        long startTime = System.currentTimeMillis();
 
-        Page<Person> personPage = personService.findAll(pageRequest);
+        ExampleMatcher personExampleMatcher = ExampleMatcher
+                .matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+
+        Page<Person> personPage = personService.findAll(Example.of(personFilterDto, personExampleMatcher), pageRequest);
 
         log.info("Grid Query time is " + (System.currentTimeMillis() - startTime));
 
