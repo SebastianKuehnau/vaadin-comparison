@@ -1,6 +1,7 @@
 
 import "@vaadin/vaadin-grid";
-import "@vaadin/grid/src/vaadin-grid-column";
+import "@vaadin/grid/src/vaadin-grid-filter-column";
+import "@vaadin/text-field"
 import "@vaadin/vertical-layout";
 import { html, customElement } from "lit-element";
 import { View } from "../../views/view";
@@ -19,16 +20,17 @@ export class PersonListViewView extends View {
     return html`
       <vaadin-vertical-layout class="w-full h-full">
           <vaadin-grid id="grid" class="w-full h-full" theme="no-border" .dataProvider=${this.dataProvider}>
-            <vaadin-grid-column path="firstname"></vaadin-grid-column>
-            <vaadin-grid-column path="lastname"></vaadin-grid-column>
-            <vaadin-grid-column path="email"></vaadin-grid-column>
+            <vaadin-grid-filter-column path="firstname"></vaadin-grid-filter-column>
+            <vaadin-grid-filter-column path="lastname"></vaadin-grid-filter-column>
+            <vaadin-grid-filter-column path="email"></vaadin-grid-filter-column>
+            <vaadin-grid-filter-column path="counter"></vaadin-grid-filter-column>
           </vaadin-grid>
       </vaadin-vertical-layout>
     `;
   }
 
   async dataProvider(params: GridDataProviderParams<Person>, callback: GridDataProviderCallback<Person>) {
-    const page = await PersonEndpoint.getPage(params.page, params.pageSize);
+    const page = await PersonEndpoint.getPage(params.page, params.pageSize, params.filters);
     
     callback(page?.content, page?.size);
   }

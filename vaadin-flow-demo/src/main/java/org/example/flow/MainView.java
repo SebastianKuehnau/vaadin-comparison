@@ -1,5 +1,6 @@
 package org.example.flow;
 
+import com.google.common.base.Stopwatch;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
@@ -19,6 +20,7 @@ import org.example.flow.backend.PersonService;
 import org.example.flow.util.SpringUtil;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 @Route
 @CssImport("./styles/shared-styles.css")
@@ -76,7 +78,9 @@ public class MainView extends VerticalLayout {
 
                     var personDTO = new Person(lastnameField.getValue(), firstnameField.getValue(), emailField.getValue(), counterComboBox.getValue());
 
+                    var stopwatch = Stopwatch.createStarted();
                     var personPage = personService.findAll(Example.of(personDTO, personExampleMatcher), pageRequest);
+                    System.out.println(stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
                     return personPage.stream();
                 });
