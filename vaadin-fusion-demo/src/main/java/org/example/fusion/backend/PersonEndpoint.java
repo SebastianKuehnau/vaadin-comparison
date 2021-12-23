@@ -6,8 +6,6 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.fusion.Endpoint;
 import com.vaadin.fusion.Nonnull;
 
-import org.springframework.data.domain.PageRequest;
-
 @Endpoint
 @AnonymousAllowed
 public class PersonEndpoint {
