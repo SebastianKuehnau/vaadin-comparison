@@ -9,7 +9,7 @@ import { html, customElement, state } from "lit-element";
 import { View } from "../../views/view";
 import { PersonEndpoint } from "Frontend/generated/endpoints";
 import Person from "Frontend/generated/org/example/fusion/backend/Person";
-import { render } from "lit";
+import {GridColumn} from "@vaadin/grid";
 
 @customElement('person-list-view-view')
 export class PersonListViewView extends View {
@@ -27,36 +27,43 @@ export class PersonListViewView extends View {
     return html`
       <vaadin-vertical-layout class="w-full h-full">
           <vaadin-grid id="grid" class="w-full h-full" theme="no-border" .items="${this.items}">
-            <vaadin-grid-column .headerRenderer="${this.firstnameHeaderRenderer}" path="firstname"></vaadin-grid-column>
-            <vaadin-grid-column path="lastname"></vaadin-grid-column>
-            <vaadin-grid-filter-column path="email"></vaadin-grid-filter-column>
+            <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}" path="firstname"></vaadin-grid-column>
+            <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}" path="lastname"></vaadin-grid-column>
+            <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}" path="email"></vaadin-grid-column>
           </vaadin-grid>
       </vaadin-vertical-layout>
     `;
   }
 
-  private firstnameHeaderRenderer = (root: HTMLElement) => {
-    // Create header for column
-    let header = root.querySelector('div');
-    if (!header) {
-      header = document.createElement('div');
-      header.textContent = "firstname";
-      root.appendChild(header);
-    }
-    // Create filter control
-    let filter = root.querySelector('vaadin-grid-filter');
-    if (!filter) {
-      filter = document.createElement('vaadin-grid-filter');
-      root.appendChild(filter);
-    }
-    filter.path = 'firstname';
+  private headerFilterSortRenderer = (root: HTMLElement, column: GridColumn) => {
+    let pathName = column.path;
 
-    // Create sorter control
-    let sorter = root.querySelector('vaadin-grid-sorter');
-    if (!sorter) {
-      sorter = document.createElement('vaadin-grid-sorter');
-      root.appendChild(sorter);
+    if (typeof pathName === "string") {
+
+      // Create header for column
+      let header = root.querySelector('div');
+      if (!header) {
+        header = document.createElement('div');
+        header.textContent = pathName.charAt(0).toUpperCase() + pathName.substr(1);
+
+        root.appendChild(header);
+      }
+
+      // Create filter control
+      let filter = root.querySelector('vaadin-grid-filter');
+      if (!filter) {
+        filter = document.createElement('vaadin-grid-filter');
+        root.appendChild(filter);
+      }
+      filter.path = pathName;
+
+      // Create sorter control
+      let sorter = root.querySelector('vaadin-grid-sorter');
+      if (!sorter) {
+        sorter = document.createElement('vaadin-grid-sorter');
+        root.appendChild(sorter);
+      }
+      sorter.path = pathName;
     }
-    sorter.path = 'firstname';
   };
 }
