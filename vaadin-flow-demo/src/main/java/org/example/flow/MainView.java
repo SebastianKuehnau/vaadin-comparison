@@ -116,14 +116,12 @@ public class MainView extends VerticalLayout {
         });
     }
 
-    private void update() {
-        personGrid.getDataProvider().refreshAll();
-        counterComboBox.getDataProvider().refreshAll();
-    }
-
     public class FilterTextField extends TextField {
         public FilterTextField() {
-            super(event -> update());
+            super(event -> {
+                personGrid.getDataProvider().refreshAll();
+                counterComboBox.getDataProvider().refreshAll();
+            });
             setClearButtonVisible(true);
             setValueChangeMode(ValueChangeMode.EAGER);
         }
@@ -131,7 +129,10 @@ public class MainView extends VerticalLayout {
 
     public class FilterComboBox<T> extends ComboBox<T> {
         public FilterComboBox() {
-            addSelectedItemChangeListener(event -> update());
+            addSelectedItemChangeListener(event -> {
+                personGrid.getDataProvider().refreshAll();
+                counterComboBox.getDataProvider().refreshAll();
+            });
             setClearButtonVisible(true);
         }
     }
