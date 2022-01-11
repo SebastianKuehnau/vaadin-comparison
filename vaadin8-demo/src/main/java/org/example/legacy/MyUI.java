@@ -10,6 +10,7 @@ import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.components.grid.HeaderRow;
+import com.vaadin.ui.themes.ValoTheme;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class MyUI extends UI {
         personGrid.setSizeFull();
 
         counterFilterField.setItems(personService.findDistinctCounter());
+        counterFilterField.addStyleName(ValoTheme.COMBOBOX_TINY);
         counterFilterField.addValueChangeListener(event -> personGrid.getDataProvider().refreshAll());
 
         HeaderRow headerRow = personGrid.appendHeaderRow();
@@ -73,6 +75,7 @@ public class MyUI extends UI {
     public class FilterTextField extends TextField {
         public FilterTextField(String placeholder) {
             addValueChangeListener(event -> personGrid.getDataProvider().refreshAll());
+            addStyleName(ValoTheme.TEXTFIELD_TINY);
             setValueChangeMode(ValueChangeMode.EAGER);
             setPlaceholder(placeholder);
         }
