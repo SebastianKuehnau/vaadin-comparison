@@ -19,4 +19,8 @@ public class PersonEndpoint {
     public @Nonnull List<@Nonnull Person> findAll() {
         return personRepository.findAll();
     }
+
+    public @Nonnull List<@Nonnull Integer> findDistinctCounter() {
+        return personRepository.findDistinctCounter();
+    }
 }

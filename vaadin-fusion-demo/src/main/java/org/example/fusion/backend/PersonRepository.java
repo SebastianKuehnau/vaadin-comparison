@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
@@ -15,4 +16,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Cacheable("findAllByExample")
     <S extends Person> List<S> findAll(Example<S> example);
+
+    @Query("SELECT DISTINCT p.counter FROM Person p")
+    List<Integer> findDistinctCounter();
 }

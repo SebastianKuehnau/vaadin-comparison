@@ -13,6 +13,7 @@ import org.example.flow.backend.Person;
 import org.example.flow.backend.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Route
@@ -27,11 +28,13 @@ public class MainView extends VerticalLayout {
     final Grid<Person> personGrid = new Grid<>(Person.class);
 
     public MainView(@Autowired PersonService personService) {
-        
+
         personGrid.setColumns("lastname", "firstname", "email", "counter");
         personGrid.setSizeFull();
 
         var personList = personService.findAll();
+        //sort lastname column
+        personList.sort(Comparator.comparing(Person::getLastname));
         GridListDataView<Person> dataView = personGrid.setItems(personList);
         dataView.addFilter(this::personMatch);
 
