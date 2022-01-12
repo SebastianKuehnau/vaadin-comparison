@@ -1,10 +1,10 @@
 import "@vaadin/vaadin-grid";
 import "@vaadin/vaadin-text-field";
 import '@vaadin/vaadin-combo-box';
-import "@vaadin/grid/src/vaadin-grid-filter";
-import "@vaadin/grid/src/vaadin-grid-sorter";
-import "@vaadin/grid/src/vaadin-grid-filter-column";
 import "@vaadin/vertical-layout";
+import "@vaadin/grid/vaadin-grid-filter";
+import "@vaadin/grid/vaadin-grid-sorter";
+import "@vaadin/grid/vaadin-grid-filter-column";
 import {html} from "lit";
 import {render} from "lit-html";
 import {customElement, state} from "lit/decorators.js";
@@ -13,9 +13,6 @@ import {View} from "../../views/view";
 import {PersonEndpoint} from "Frontend/generated/endpoints";
 import Person from "Frontend/generated/org/example/fusion/backend/Person";
 import {GridColumn, GridDataProvider} from "@vaadin/grid";
-// @ts-ignore
-import {createArrayDataProvider} from 'Frontend/views/personlistview/filter-array-data-provider.js';
-import {css} from "@vaadin/vaadin-themable-mixin";
 
 @customElement('person-list-view-view')
 export class PersonListViewView extends View {
@@ -23,21 +20,43 @@ export class PersonListViewView extends View {
     @state()
     private personItems: Person[] = [];
 
-    private dataProvider: GridDataProvider<Person> = () => {
-    };
-
     async connectedCallback() {
         super.connectedCallback();
 
         this.personItems = await PersonEndpoint.findAll();
-
-        this.dataProvider = createArrayDataProvider(this.personItems);
     }
+
+    private dataProvider : GridDataProvider<Person> = (params, callback) => {
+        let items = this.personItems ;
+
+        function get(path: string, item: Person) {
+            // @ts-ignore
+            return path.split('.').reduce((obj, property) => obj[property], item);
+        }
+
+        if (params.filters) {
+            items = items.filter((item) =>
+                params.filters.every((filter) => {
+
+                    const value = get(filter.path, item);
+                    const filterValueLowercase = filter.value.toString().toLowerCase();
+
+                    if (filter.path === "counter") {
+                        return filterValueLowercase === "" || value.toString() === filterValueLowercase;
+                    } else {
+                        return value.toString().toLowerCase().startsWith(filterValueLowercase);
+                    }
+                })
+            );
+        }
+
+        callback(items, items.length);
+    };
 
     render() {
         return html`
-            <vaadin-vertical-layout class="w-full h-full">
-                <vaadin-grid id="grid" class="w-full h-full" theme="no-border" .dataProvider="${this.dataProvider}">
+            <vaadin-vertical-layout theme="padding spacing" class="w-full h-full">
+                <vaadin-grid id="grid" class="w-full h-full" .dataProvider="${guard([this.personItems], () => this.dataProvider.bind(this))}">
                     <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}"
                                         path="firstname"></vaadin-grid-column>
                     <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}"
