@@ -4,4 +4,5 @@ Vaadin comparison is a project to show the different implementation types of Vaa
 
 1. [Simple Grid](https://github.com/SebastianKuehnau/vaadin-comparison/tree/simple-grid)
 2. [Grid with Lazy loading](https://github.com/SebastianKuehnau/vaadin-comparison/tree/lazy-grid)
-3. [Grid with Filter and Lazy Loading](https://github.com/SebastianKuehnau/vaadin-comparison/tree/filter-lazy-grid)
+3. [Simple Grid with Filter](https://github.com/SebastianKuehnau/vaadin-comparison/tree/filter-simple-grid)
+4. [Grid with Filter and Lazy Loading](https://github.com/SebastianKuehnau/vaadin-comparison/tree/filter-lazy-grid)
