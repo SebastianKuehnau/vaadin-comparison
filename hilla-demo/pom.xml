@@ -3,22 +3,22 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- Vaadin project from https://start.vaadin.com/project/3c3a923d-1620-4116-9570-f4edbd02a423 -->
-    <groupId>org.example.fusion</groupId>
-    <artifactId>vaadin-fusion-demo</artifactId>
-    <name>Project base for Spring Boot and Vaadin Fusion</name>
+    <groupId>org.example.hilla</groupId>
+    <artifactId>hilla-demo</artifactId>
+    <name>Project base for Spring Boot and Hilla</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
-        <vaadin.version>22.0.1</vaadin.version>
+        <hilla.version>1.0.0.beta4</hilla.version>
         <log4j2.version>2.16.0</log4j2.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.7</version>
+        <version>2.6.3</version>
     </parent>
 
     <repositories>
@@ -34,9 +34,7 @@
         </repository>
         <repository>
             <id>vaadin-prereleases</id>
-            <url>
-                https://maven.vaadin.com/vaadin-prereleases/
-            </url>
+            <url>https://maven.vaadin.com/vaadin-prereleases/</url>
         </repository>
         <!-- Repository used by many Vaadin add-ons -->
         <repository>
@@ -68,9 +66,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-bom</artifactId>
-                <version>${vaadin.version}</version>
+                <groupId>dev.hilla</groupId>
+                <artifactId>hilla-bom</artifactId>
+                <version>${hilla.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -79,13 +77,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <!-- Replace artifactId with vaadin-core to use only free components -->
-            <artifactId>vaadin</artifactId>
+            <groupId>dev.hilla</groupId>
+            <artifactId>hilla</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-spring-boot-starter</artifactId>
+            <groupId>dev.hilla</groupId>
+            <artifactId>hilla-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -142,9 +139,9 @@
                 It also creates webpack.config.js if not exists yet.
             -->
             <plugin>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
+                <groupId>dev.hilla</groupId>
+                <artifactId>hilla-maven-plugin</artifactId>
+                <version>${hilla.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -152,9 +149,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <pnpmEnable>true</pnpmEnable>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -166,9 +160,9 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
+                        <groupId>dev.hilla</groupId>
+                        <artifactId>hilla-maven-plugin</artifactId>
+                        <version>${hilla.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -178,8 +172,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                             <productionMode>true</productionMode>
-                            <pnpmEnable>true</pnpmEnable>
+                            <productionMode>true</productionMode>
                         </configuration>
                     </plugin>
                 </plugins>

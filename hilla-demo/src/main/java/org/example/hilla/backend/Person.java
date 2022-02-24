@@ -1,4 +1,4 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
