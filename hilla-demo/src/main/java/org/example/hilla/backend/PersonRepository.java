@@ -1,4 +1,4 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import java.util.List;
 

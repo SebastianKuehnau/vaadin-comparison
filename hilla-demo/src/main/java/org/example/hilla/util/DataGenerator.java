@@ -1,7 +1,7 @@
-package org.example.fusion.util;
+package org.example.hilla.util;
 
-import org.example.fusion.backend.Person;
-import org.example.fusion.backend.PersonRepository;
+import org.example.hilla.backend.Person;
+import org.example.hilla.backend.PersonRepository;
 import org.ajbrown.namemachine.Name;
 import org.ajbrown.namemachine.NameGenerator;
 import org.springframework.boot.CommandLineRunner;

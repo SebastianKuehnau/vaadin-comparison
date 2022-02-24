@@ -1,12 +1,10 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import java.util.List;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
-
-import org.springframework.data.domain.PageRequest;
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
 
 @Endpoint
 @AnonymousAllowed

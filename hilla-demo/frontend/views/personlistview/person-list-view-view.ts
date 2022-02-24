@@ -5,7 +5,7 @@ import "@vaadin/vertical-layout";
 import { html, customElement, state } from "lit-element";
 import { View } from "../../views/view";
 import { PersonEndpoint } from "Frontend/generated/endpoints";
-import Person from "Frontend/generated/org/example/fusion/backend/Person";
+import Person from "Frontend/generated/org/example/hilla/backend/Person";
 
 @customElement('person-list-view-view')
 export class PersonListViewView extends View {
