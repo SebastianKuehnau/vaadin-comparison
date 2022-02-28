@@ -1,11 +1,12 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import java.util.List;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
 
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 @Endpoint
@@ -18,22 +19,14 @@ public class PersonEndpoint {
         this.personRepository = personRepository;
     }
 
+    public @Nonnull Long count() { return personRepository.count(); }
+
     public @Nonnull List<@Nonnull Person> findAll() {
         return personRepository.findAll();
     }
 
-    class PageResponse<T> {
-        public List<T> content;
-        public long size;
-    }
-
-    public PageResponse<Person> getPage(int page, int size) {
+    public @Nonnull Page<@Nonnull Person> getPage(int page, int size) {
         var dbPage = personRepository.findAll(PageRequest.of(page, size));
-    
-        var response = new PageResponse<Person>();
-        response.content = dbPage.getContent();
-        response.size = dbPage.getTotalElements();
-    
-        return response;
+        return dbPage;
     }
 }
