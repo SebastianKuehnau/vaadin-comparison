@@ -1,10 +1,10 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import java.util.List;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
 
 @Endpoint
 @AnonymousAllowed
@@ -15,6 +15,8 @@ public class PersonEndpoint {
     public PersonEndpoint(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
+
+    public @Nonnull Long count() { return personRepository.count(); }
 
     public @Nonnull List<@Nonnull Person> findAll() {
         return personRepository.findAll();

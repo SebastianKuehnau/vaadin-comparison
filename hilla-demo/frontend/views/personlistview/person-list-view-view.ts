@@ -7,15 +7,18 @@ import "@vaadin/grid/vaadin-grid-sorter";
 import "@vaadin/grid/vaadin-grid-filter-column";
 import {html} from "lit";
 import {render} from "lit-html";
-import {customElement, state} from "lit/decorators.js";
+import {customElement, state, property} from "lit/decorators.js";
 import {guard} from 'lit/directives/guard.js';
 import {View} from "../../views/view";
 import {PersonEndpoint} from "Frontend/generated/endpoints";
-import Person from "Frontend/generated/org/example/fusion/backend/Person";
+import Person from "Frontend/generated/org/example/hilla/backend/Person";
 import {GridColumn, GridDataProvider} from "@vaadin/grid";
 
 @customElement('person-list-view-view')
 export class PersonListViewView extends View {
+
+    @property({ type: Number })
+    private gridSize = 0;
 
     @state()
     private personItems: Person[] = [];
@@ -24,6 +27,7 @@ export class PersonListViewView extends View {
         super.connectedCallback();
 
         this.personItems = await PersonEndpoint.findAll();
+        this.gridSize = (await PersonEndpoint.count()) ?? 0;
     }
 
     private dataProvider : GridDataProvider<Person> = (params, callback) => {
@@ -56,7 +60,7 @@ export class PersonListViewView extends View {
     render() {
         return html`
             <vaadin-vertical-layout theme="padding spacing" class="w-full h-full">
-                <vaadin-grid id="grid" class="w-full h-full" .dataProvider="${guard([this.personItems], () => this.dataProvider.bind(this))}">
+                <vaadin-grid id="grid" class="w-full h-full" .size=${this.gridSize} .dataProvider="${guard([this.personItems], () => this.dataProvider.bind(this))}">
                     <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}"
                                         path="firstname"></vaadin-grid-column>
                     <vaadin-grid-column .headerRenderer="${this.headerFilterSortRenderer}"
