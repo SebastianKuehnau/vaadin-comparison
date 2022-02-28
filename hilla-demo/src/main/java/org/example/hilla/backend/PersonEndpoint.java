@@ -1,13 +1,13 @@
-package org.example.fusion.backend;
+package org.example.hilla.backend;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
 
-import org.example.fusion.util.GridFilterValue;
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
+import org.example.hilla.util.GridFilterValue;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
@@ -26,12 +26,16 @@ public class PersonEndpoint {
         return personRepository.findAll();
     }
 
-    class PageResponse<T> {
-        public List<T> content;
-        public long size;
+    public @Nonnull Long count() {
+        return personRepository.count();
     }
 
-    public PageResponse<Person> getPage(int page, int size, List<GridFilterValue> filterValueList) {
+    class PageResponse<@Nonnull T> {
+        public @Nonnull List<@Nonnull T> content;
+        public @Nonnull long size;
+    }
+
+    public @Nonnull PageResponse<@Nonnull Person> getPage(int page, int size, List<GridFilterValue> filterValueList) {
 
         var personFilterValueMap = filterValueList.stream().
                 collect(Collectors.toMap(GridFilterValue::getPath, GridFilterValue::getValue));

@@ -1,4 +1,4 @@
-package org.example.fusion.util;
+package org.example.hilla.util;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package org.example.fusion;
+package org.example.hilla;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
@@ -17,8 +17,8 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @EnableCaching
-@Theme(value = "vaadin-fusion-demo")
-@PWA(name = "vaadin-fusion-demo", shortName = "vaadin-fusion-demo", offlineResources = {"images/logo.png"})
+@Theme(value = "hilla-demo")
+@PWA(name = "hilla-demo", shortName = "hilla-demo", offlineResources = {"images/logo.png"})
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {
